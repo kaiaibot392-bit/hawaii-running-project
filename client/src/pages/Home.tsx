@@ -7,7 +7,7 @@ import { Link } from "react-router-dom";
 const Home = () => {
   const highlights = [
     {
-      title: "2025 Workout Schedule",
+      title: "2026 Workout Schedule",
       description: "4 days a week training sessions across Oahu",
       icon: Calendar,
       link: "/schedule",
