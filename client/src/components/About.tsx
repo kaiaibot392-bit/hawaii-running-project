@@ -117,7 +117,7 @@ const About = () => {
             <ul className="text-muted-foreground leading-relaxed space-y-2">
               {programs.slice(0, 6).map((program, index) => (
                 <li key={index} className="flex items-start">
-                  <span className="w-2 h-2 bg-primary rounded-full mt-2.5 mr-3 flex-shrink-0"></span>
+                  <span className="w-2 h-2 bg-secondary rounded-full mt-2.5 mr-3 flex-shrink-0"></span>
                   {program}
                 </li>
               ))}
