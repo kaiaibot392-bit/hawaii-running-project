@@ -43,7 +43,6 @@ const WorkoutSchedule = () => {
       description: "3 or 5 mile routes around Ala Moana Beach Park and Waterfront Park",
       parking: "Free parking on level 2 near the Bloomingdales / Morton's Steak House entrance",
       special: "Post run refreshments provided",
-      mixer: "Don't miss our \"Mixers & Chasers\" collab with Run Drink Repeat on the last Thursday of the month at Howzit Brewing",
       icon: "🏃‍♀️",
       color: "bg-blue-500"
     },

@@ -8,7 +8,7 @@ const Programs = () => {
       icon: Users,
       title: "Community Run Clubs",
       description: "Weekly group runs in neighborhoods across the islands, welcoming all fitness levels and fostering local connections.",
-      features: ["5 sessions per week", "All skill levels", "Social atmosphere", "Local routes"],
+      features: ["4 sessions per week", "All skill levels", "Social atmosphere", "Local routes"],
       color: "ocean"
     },
     {
