@@ -8,7 +8,7 @@ const Home = () => {
   const highlights = [
     {
       title: "2025 Workout Schedule",
-      description: "5 days a week training sessions across Oahu",
+      description: "4 days a week training sessions across Oahu",
       icon: Calendar,
       link: "/schedule",
       color: "bg-green-100 text-green-800"
