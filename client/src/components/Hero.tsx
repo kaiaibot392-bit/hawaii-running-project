@@ -51,7 +51,7 @@ const Hero = () => {
             <div className="text-center animate-slide-up" style={{ animationDelay: '0.2s' }}>
               <div className="flex items-center justify-center mb-2">
                 <Calendar className="h-8 w-8 text-secondary mr-2" />
-                <span className="text-3xl font-bold text-white">5</span>
+                <span className="text-3xl font-bold text-white">4</span>
               </div>
               <p className="text-white/80">Weekly Sessions</p>
             </div>
