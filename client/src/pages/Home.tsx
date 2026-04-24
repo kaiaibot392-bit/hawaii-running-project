@@ -1,4 +1,5 @@
 import Hero from "@/components/Hero";
+import UpcomingEvent from "@/components/UpcomingEvent";
 import { Card } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { ArrowRight, Calendar, Users, Trophy } from "lucide-react";
@@ -32,7 +33,9 @@ const Home = () => {
   return (
     <div className="min-h-screen">
       <Hero />
-      
+
+      <UpcomingEvent />
+
       {/* Quick Access Section */}
       <section className="section-padding bg-muted/20">
         <div className="max-w-6xl mx-auto">

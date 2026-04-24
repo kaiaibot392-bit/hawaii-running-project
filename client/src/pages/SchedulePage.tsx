@@ -1,13 +1,11 @@
-import WorkoutSchedule from "@/components/WorkoutSchedule";
-import CalendarView from "@/components/CalendarView";
+import WeeklySchedule from "@/components/WeeklySchedule";
 
 const SchedulePage = () => {
   return (
     <div className="min-h-screen pt-16">
-      {/* <CalendarView /> */}
-      <WorkoutSchedule />
+      <WeeklySchedule />
     </div>
   );
 };
 
-export default SchedulePage; 
+export default SchedulePage;
