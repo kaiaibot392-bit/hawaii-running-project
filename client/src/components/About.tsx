@@ -42,16 +42,11 @@ const About = () => {
 
   const boardMembers = [
     { name: "Kawika Carlson", role: "Founder" },
-    { name: "Seth August", role: "Chair" },
-    { name: "Tanner Crass", role: "Vice Chair" },
-    { name: "Weni Amrich", role: "Treasurer" },
-    { name: "Christian Fullmer", role: "Secretary" },
-    { name: "Peter Hill", role: "Past Chair" },
-    { name: "Naomi Morita", role: "Training/Coaching" },
-    { name: "Tim Ferber", role: "Racing/Events" },
-    { name: "Moana Wong", role: "Social Committee" },
-    { name: "Brandon LaCour", role: "Membership" },
-    { name: "Sharon Chi", role: "Membership" }
+    { name: "Weni Amrich", role: "Chair" },
+    { name: "Peter Hill", role: "Vice-Chair" },
+    { name: "Moana Wong", role: "Secretary" },
+    { name: "Tim Ferber", role: "Treasurer" },
+    { name: "Seth August", role: "Past Chair" },
   ];
 
   return (
