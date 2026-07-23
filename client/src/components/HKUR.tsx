@@ -314,7 +314,7 @@ const HKUR = () => {
             <div className="lg:col-span-7 lg:pt-2">
               <p className="text-lg text-muted-foreground leading-relaxed">
                 Finisher shirts are $25 when you pre-order by July 6, 2026. A
-                limited supply will be available on race day for $30. All
+                limited supply will be available on race day for $35. All
                 registered finishers receive a certificate, a medal, and
                 stickers.
               </p>
