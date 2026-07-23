@@ -10,7 +10,7 @@ import {
   Timer,
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import { fetchHkurResults, type HkurResult } from "@/lib/hkur";
+import { fetchHkurResults, waveStartDate, type HkurResult } from "@/lib/hkur";
 
 const REGISTER_URL =
   "https://runsignup.com/Race/HI/Honolulu/HawaiiKaiUltraRunXTreme";
@@ -132,7 +132,7 @@ const InfoResults = () => {
                     Finish
                   </th>
                   <th className="px-4 py-3 font-medium text-foreground hidden md:table-cell">
-                    Wave
+                    Date
                   </th>
                 </tr>
               </thead>
@@ -158,7 +158,7 @@ const InfoResults = () => {
                       {r.endTime || "—"}
                     </td>
                     <td className="px-4 py-3 text-muted-foreground whitespace-nowrap hidden md:table-cell">
-                      {r.whichWave || r.waveStart || "—"}
+                      {waveStartDate(r.whichWave) || "—"}
                     </td>
                   </tr>
                 ))}
