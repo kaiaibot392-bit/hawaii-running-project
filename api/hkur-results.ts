@@ -1,8 +1,9 @@
 import type { IncomingMessage, ServerResponse } from 'http';
 
 // Public "Results" tab of the HKUR 2026 scoring spreadsheet.
+// gid=0 is the volunteer-instructions tab; the actual finisher table lives here.
 const SHEET_ID = '1bWGErP4yhSlm4Y0iSoqH6WLR_DLfZAQzKTDEjTDQ8Eg';
-const RESULTS_GID = '0';
+const RESULTS_GID = '191008730';
 const CSV_URL = `https://docs.google.com/spreadsheets/d/${SHEET_ID}/export?format=csv&gid=${RESULTS_GID}`;
 
 export type HkurResult = {
@@ -12,8 +13,8 @@ export type HkurResult = {
   startTime: string;
   endTime: string;
   totalTime: string;
-  date: string;
   waveStart: string;
+  whichWave: string;
 };
 
 // Minimal RFC-4180-ish CSV parser: handles quoted fields, escaped quotes ("")
@@ -75,8 +76,8 @@ function findHeader(rows: string[][]): { index: number; map: Record<string, numb
       startTime: find(/^start|start time/),
       endTime: find(/^end|end time|finish/),
       totalTime: find(/total|elapsed/),
-      date: find(/date/),
-      waveStart: find(/wave/),
+      whichWave: find(/which wave/),
+      waveStart: find(/^wave|wave start/),
     };
 
     // Require the labels to live in *distinct* columns, not all crammed into
@@ -117,8 +118,8 @@ export function parseResults(csv: string): HkurResult[] {
       startTime: at(cells, 'startTime'),
       endTime: at(cells, 'endTime'),
       totalTime: at(cells, 'totalTime'),
-      date: at(cells, 'date'),
       waveStart: at(cells, 'waveStart'),
+      whichWave: at(cells, 'whichWave'),
     };
     // Skip empty/placeholder rows — require at least a name or a distance.
     if (!result.firstName && !result.lastName && !result.distance) continue;
