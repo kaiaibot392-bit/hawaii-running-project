@@ -1,132 +1,146 @@
-import { ArrowRight, Check } from "lucide-react";
+import { ArrowUpRight, Check } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import { Card } from "@/components/ui/card";
+
+const TIERS = [
+  {
+    name: "Pathfinder",
+    price: "Free",
+    priceNote:
+      "Volunteer at two of our races or events in exchange for membership.",
+    benefits: [
+      "Unlimited group workouts",
+      "Access to coaching",
+      "A welcoming community of runners",
+    ],
+    cta: "Start your journey",
+  },
+  {
+    name: "Pace Setter",
+    price: "$30",
+    benefits: [
+      "Everything in Pathfinder",
+      "HRP T-shirt",
+      "Half off Hawaii Kai Ultra",
+    ],
+    cta: "Pick up speed",
+    featured: true,
+  },
+  {
+    name: "Shaka Sprinter",
+    price: "$100",
+    benefits: [
+      "Everything in Pace Setter",
+      "Champion our mission",
+      "Half off annual banquet",
+    ],
+    cta: "Lead the pack",
+  },
+];
+
+const SIGNUP_URL =
+  "https://runsignup.com/Club/HI/Honolulu/HawaiiRunningProject";
 
 const JoinUs = () => {
-  const membershipTiers = [
-    {
-      name: "Pathfinder",
-      price: "FREE*",
-      priceNote: "We kindly ask that you volunteer at two of our numerous races/events",
-      benefits: [
-        "Unlimited workouts",
-        "Access to coaching",
-        "Connect with a welcoming community of runners"
-      ],
-      buttonText: "Start your journey!",
-      buttonClass: "bg-white text-green-800 hover:bg-gray-100",
-      cardClass: "bg-green-700 text-white"
-    },
-    {
-      name: "Pace Setter",
-      price: "$30",
-      benefits: [
-        "All in Pathfinder +",
-        "HRP T-shirt",
-        "1/2 off Hawaii Kai Ultra"
-      ],
-      buttonText: "Pick up speed!",
-      buttonClass: "bg-white text-green-800 hover:bg-gray-100",
-      cardClass: "bg-green-700 text-white"
-    },
-    {
-      name: "Shaka Sprinter", 
-      price: "$100",
-      benefits: [
-        "All in Pace Setter +",
-        "Champion our mission",
-        "Half off Annual Banquet"
-      ],
-      buttonText: "Lead the pack!",
-      buttonClass: "bg-white text-green-800 hover:bg-gray-100",
-      cardClass: "bg-green-700 text-white"
-    }
-  ];
-
   return (
-    <section id="join" className="section-padding bg-gray-50">
-      <div className="max-w-7xl mx-auto">
-        {/* Header */}
-        <div className="text-center mb-12">
-          <h2 className="text-4xl sm:text-6xl font-display font-bold text-gray-800 mb-4">
-            Join us today!
-          </h2>
-          <p className="text-lg text-gray-600 max-w-2xl mx-auto">
-            All memberships includes our required liability waiver.
-          </p>
-        </div>
-
-        {/* Membership Section Header */}
-        <div className="text-center mb-12">
-          <div className="flex items-center justify-center mb-6">
-            <img 
-              src="https://hawaiirunningproject.wordpress.com/wp-content/uploads/2025/01/cropped-cropped-hrp-transparent.png" 
-              alt="Hawaii Running Project Logo" 
-              className="w-16 h-16 object-contain mr-4"
-            />
-            <div>
-              <h3 className="text-2xl sm:text-3xl font-bold text-gray-800">
-                Get set, Go! Become a member
-              </h3>
-              <p className="text-gray-600 text-sm sm:text-base">
-                Your membership funds training, events, coaching, and community perks
-              </p>
-            </div>
+    <section className="section-padding bg-muted/40">
+      <div className="section-container">
+        <div className="grid lg:grid-cols-12 gap-10 mb-16">
+          <div className="lg:col-span-5">
+            <p className="eyebrow mb-4">Membership</p>
+            <div className="display-rule mb-8" />
+            <h2 className="font-display text-4xl lg:text-5xl font-semibold tracking-tight text-foreground leading-tight">
+              Become a member.
+            </h2>
+          </div>
+          <div className="lg:col-span-7 lg:pt-2">
+            <p className="text-lg text-muted-foreground leading-relaxed">
+              Running with us is always free. Membership funds our training,
+              events, coaching, and community programs — and gets you some
+              perks along the way.
+            </p>
           </div>
         </div>
 
-        {/* Membership Tiers */}
-        <div className="grid md:grid-cols-3 gap-8 mb-16">
-          {membershipTiers.map((tier, index) => (
-            <Card key={tier.name} className={`${tier.cardClass} p-8 rounded-2xl shadow-lg relative overflow-hidden`}>
-              <div className="text-center">
-                <h4 className="text-2xl font-bold mb-4">
-                  {tier.name}
-                </h4>
-                <div className="mb-6">
-                  <div className="text-4xl sm:text-5xl font-bold mb-2">
-                    {tier.price}
-                  </div>
-                  {tier.priceNote && (
-                    <p className="text-sm opacity-90 max-w-xs mx-auto">
-                      {tier.priceNote}
-                    </p>
-                  )}
-                </div>
-                
-                <div className="space-y-3 mb-8">
-                  {tier.benefits.map((benefit, benefitIndex) => (
-                    <div key={benefitIndex} className="flex items-start space-x-2">
-                      <Check className="h-5 w-5 mt-0.5 flex-shrink-0" />
-                      <span className="text-left">{benefit}</span>
-                    </div>
-                  ))}
-                </div>
-
-                                 <Button 
-                   className={`${tier.buttonClass} w-full py-3 font-semibold rounded-full flex items-center justify-center space-x-2`}
-                   onClick={() => window.open('https://runsignup.com/Club/HI/Honolulu/HawaiiRunningProject', '_blank')}
-                 >
-                   <span>{tier.buttonText}</span>
-                   <ArrowRight className="h-4 w-4" />
-                 </Button>
+        <div className="grid md:grid-cols-3 border border-border bg-background">
+          {TIERS.map((tier, idx) => (
+            <div
+              key={tier.name}
+              className={`p-8 lg:p-10 flex flex-col ${
+                idx < TIERS.length - 1
+                  ? "border-b md:border-b-0 md:border-r border-border"
+                  : ""
+              } ${tier.featured ? "bg-primary text-primary-foreground" : ""}`}
+            >
+              <div
+                className={`eyebrow mb-4 ${
+                  tier.featured
+                    ? "text-primary-foreground/70"
+                    : ""
+                }`}
+              >
+                {tier.name}
               </div>
-            </Card>
+              <div className="mb-6">
+                <span className="font-display text-5xl font-semibold tracking-tight">
+                  {tier.price}
+                </span>
+                {tier.priceNote && (
+                  <p
+                    className={`mt-3 text-sm leading-relaxed ${
+                      tier.featured
+                        ? "text-primary-foreground/80"
+                        : "text-muted-foreground"
+                    }`}
+                  >
+                    {tier.priceNote}
+                  </p>
+                )}
+              </div>
+
+              <ul className="space-y-3 mb-10 flex-1">
+                {tier.benefits.map((b) => (
+                  <li key={b} className="flex items-start gap-3 text-sm">
+                    <Check
+                      className={`h-4 w-4 mt-0.5 flex-shrink-0 ${
+                        tier.featured
+                          ? "text-primary-foreground"
+                          : "text-primary"
+                      }`}
+                    />
+                    <span>{b}</span>
+                  </li>
+                ))}
+              </ul>
+
+              <a href={SIGNUP_URL} target="_blank" rel="noopener noreferrer">
+                <Button
+                  className={`w-full gap-2 ${
+                    tier.featured
+                      ? "bg-primary-foreground text-primary hover:bg-primary-foreground/90"
+                      : ""
+                  }`}
+                >
+                  {tier.cta}
+                  <ArrowUpRight className="h-4 w-4" />
+                </Button>
+              </a>
+            </div>
           ))}
         </div>
 
-        {/* Membership Form Section */}
-        <div className="text-center">
-          <h3 className="text-3xl sm:text-4xl font-display font-bold text-gray-800 mb-8">
-            Membership Form & Waiver
-          </h3>
-                     <Button 
-             size="lg" 
-             className="bg-gray-800 text-white hover:bg-gray-700 text-lg px-12 py-4 rounded-full"
-             onClick={() => window.open('https://runsignup.com/Club/HI/Honolulu/HawaiiRunningProject', '_blank')}
-           >
-             <span className="underline">SIGN UP HERE</span>
-           </Button>
+        <div className="mt-16 pt-12 border-t border-border flex flex-col sm:flex-row items-start sm:items-center justify-between gap-6">
+          <div>
+            <p className="eyebrow mb-2">Ready to commit?</p>
+            <p className="text-foreground text-lg">
+              Sign our membership form &amp; waiver to get started.
+            </p>
+          </div>
+          <a href={SIGNUP_URL} target="_blank" rel="noopener noreferrer">
+            <Button size="lg" className="gap-2">
+              Sign up
+              <ArrowUpRight className="h-4 w-4" />
+            </Button>
+          </a>
         </div>
       </div>
     </section>

@@ -1,130 +1,110 @@
-import { ExternalLink, Award, MapPin } from "lucide-react";
+import { ArrowUpRight } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import { Card } from "@/components/ui/card";
+
+type Sponsor = {
+  name: string;
+  subtitle: string;
+  description: string;
+  image: string;
+  link: string;
+  cta: string;
+};
+
+const SPONSORS: Sponsor[] = [
+  {
+    name: "HOKA",
+    subtitle: "Ala Moana · Official Footwear Partner",
+    description:
+      "HRP members get free shipping, 60-day returns, and exclusive access to HOKA run club events in Ala Moana.",
+    image: "/hoka.png",
+    link: "https://www.hoka.com",
+    cta: "Join HOKA Fly",
+  },
+  {
+    name: "Queen Kapiolani Hotel",
+    subtitle: "Waikiki · Hospitality Partner",
+    description:
+      "Authentic Hawaiian hospitality in the heart of Waikiki, with special packages for the HRP running community.",
+    image: "/queen-kapiolani-hotel.png",
+    link: "https://www.queenkapiolani.com/packages.htm",
+    cta: "View packages",
+  },
+];
 
 const Sponsors = () => {
-  const sponsors = [
-    {
-      name: "HOKA STORE – ALA MOANA",
-      description: "Get Free Shipping & Free Extended 60 Day returns plus Exclusive Access to Events.",
-      buttonText: "Click to join today",
-      image: "/hoka.png",
-      membershipImage: "/hoka-membership.png",
-      link: "#", // You can update this with the actual HOKA link
-      gradient: "bg-gradient-ocean"
-    },
-    {
-      name: "Queen Kapiolani Hotel – Waikiki",
-      description: "Experience authentic Hawaiian hospitality in the heart of Waikiki with special packages for our running community.",
-      buttonText: "View Packages",
-      image: "/queen-kapiolani-hotel.png",
-      link: "https://www.queenkapiolani.com/packages.htm",
-      gradient: "bg-gradient-sunset"
-    }
-  ];
-
   return (
-    <section id="sponsors" className="section-padding bg-gradient-to-b from-muted/20 to-background">
-      <div className="max-w-6xl mx-auto">
-        {/* Header */}
-        <div className="text-center mb-16">
-          <h2 className="text-4xl sm:text-5xl font-display font-bold text-gradient-sunset mb-6">
-            Sponsors
-          </h2>
-          <p className="text-xl text-muted-foreground max-w-3xl mx-auto leading-relaxed mb-4">
-            Hawaii Running Project is sponsored by
-          </p>
-          <div className="flex items-center justify-center space-x-2 text-accent">
-            <Award className="h-6 w-6" />
-            <span className="text-lg font-semibold">Our Valued Partners</span>
+    <section className="section-padding">
+      <div className="section-container">
+        <div className="grid lg:grid-cols-12 gap-10 lg:gap-16 mb-20">
+          <div className="lg:col-span-5">
+            <p className="eyebrow mb-4">Sponsors</p>
+            <div className="display-rule mb-8" />
+            <h2 className="font-display text-4xl lg:text-5xl font-semibold tracking-tight text-foreground leading-tight">
+              Partners who back the club.
+            </h2>
+          </div>
+          <div className="lg:col-span-7 lg:pt-2">
+            <p className="text-lg text-muted-foreground leading-relaxed">
+              Our sponsors make the free programs, weekly runs, and races
+              possible. They also bring real perks to HRP members — discounts,
+              early access, and experiences on and off the road.
+            </p>
           </div>
         </div>
 
-        {/* Sponsors Grid */}
-        <div className="grid lg:grid-cols-2 gap-12 mb-16">
-          {sponsors.map((sponsor, index) => (
-            <Card key={sponsor.name} className="card-float p-0 overflow-hidden group hover:scale-105 transition-transform duration-300">
-              {/* Sponsor Image Header */}
-              <div className="h-48 relative overflow-hidden">
-                <img 
-                  src={sponsor.image} 
-                  alt={sponsor.name} 
-                  className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-300"
+        <div className="grid md:grid-cols-2 gap-8 lg:gap-12">
+          {SPONSORS.map((sponsor) => (
+            <article
+              key={sponsor.name}
+              className="bg-card border border-border flex flex-col"
+            >
+              <div className="aspect-[4/3] overflow-hidden bg-muted">
+                <img
+                  src={sponsor.image}
+                  alt={sponsor.name}
+                  className="h-full w-full object-cover"
                 />
-                <div className="absolute inset-0 bg-black/20"></div>
               </div>
-              
-              <div className="p-8">
-                <h3 className="text-2xl font-display font-bold text-foreground mb-4">
+              <div className="p-8 lg:p-10 flex flex-col flex-1">
+                <p className="eyebrow mb-3">{sponsor.subtitle}</p>
+                <h3 className="font-display text-2xl lg:text-3xl font-semibold text-foreground mb-4">
                   {sponsor.name}
                 </h3>
-                
-                <p className="text-muted-foreground text-lg leading-relaxed mb-6">
+                <p className="text-muted-foreground leading-relaxed mb-8 flex-1">
                   {sponsor.description}
                 </p>
-
-                {/* HOKA Membership Image */}
-                {sponsor.membershipImage && (
-                  <div className="mb-6">
-                    <img 
-                      src={sponsor.membershipImage} 
-                      alt="HOKA Membership Benefits" 
-                      className="w-full h-auto rounded-lg"
-                    />
-                  </div>
-                )}
-
-                <Button 
-                  size="lg" 
-                  className={`${sponsor.gradient} text-white text-lg px-8 py-4 inline-flex items-center space-x-2 w-full justify-center`}
-                  onClick={() => window.open(sponsor.link, '_blank')}
+                <a
+                  href={sponsor.link}
+                  target="_blank"
+                  rel="noopener noreferrer"
                 >
-                  <span>{sponsor.buttonText}</span>
-                  <ExternalLink className="h-4 w-4" />
-                </Button>
+                  <Button variant="outline" className="gap-2">
+                    {sponsor.cta}
+                    <ArrowUpRight className="h-4 w-4" />
+                  </Button>
+                </a>
               </div>
-            </Card>
+            </article>
           ))}
         </div>
 
-        {/* Partnership Benefits */}
-        <div className="text-center">
-          <Card className="card-float p-8 bg-gradient-to-r from-primary/5 to-secondary/5">
-            <div className="flex items-center justify-center mb-4">
-              <Award className="h-8 w-8 text-accent mr-3" />
-              <h3 className="text-2xl font-display font-bold text-foreground">
-                Partnership Benefits
-              </h3>
-            </div>
-            <p className="text-muted-foreground text-lg max-w-3xl mx-auto leading-relaxed mb-6">
-              Our sponsors provide exclusive benefits, special discounts, and unique experiences for Hawaii Running Project members. 
-              These partnerships help us deliver exceptional value while supporting our mission to build healthier communities across Hawaii.
-            </p>
-            <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6 text-center">
-              <div className="flex flex-col items-center">
-                <div className="w-16 h-16 bg-primary/10 rounded-full flex items-center justify-center mb-3">
-                  <Award className="h-8 w-8 text-primary" />
-                </div>
-                <p className="text-sm font-medium text-foreground">Exclusive Discounts</p>
-              </div>
-              <div className="flex flex-col items-center">
-                <div className="w-16 h-16 bg-secondary/10 rounded-full flex items-center justify-center mb-3">
-                  <MapPin className="h-8 w-8 text-secondary" />
-                </div>
-                <p className="text-sm font-medium text-foreground">Special Access</p>
-              </div>
-              <div className="flex flex-col items-center sm:col-span-2 lg:col-span-1">
-                <div className="w-16 h-16 bg-accent/10 rounded-full flex items-center justify-center mb-3">
-                  <ExternalLink className="h-8 w-8 text-accent" />
-                </div>
-                <p className="text-sm font-medium text-foreground">Premium Services</p>
-              </div>
-            </div>
-          </Card>
+        <div className="mt-20 pt-12 border-t border-border max-w-2xl">
+          <p className="eyebrow mb-4">Partner with us</p>
+          <p className="text-foreground text-lg leading-relaxed">
+            Interested in sponsoring HRP? Reach out — we'd love to talk about
+            ways to support Hawaiʻi's running community together.
+          </p>
+          <a
+            href="mailto:hawaiirunningproject@gmail.com"
+            className="mt-4 inline-flex items-center gap-2 text-sm font-medium text-primary hover:underline"
+          >
+            hawaiirunningproject@gmail.com
+            <ArrowUpRight className="h-4 w-4" />
+          </a>
         </div>
       </div>
     </section>
   );
 };
 
-export default Sponsors; 
+export default Sponsors;

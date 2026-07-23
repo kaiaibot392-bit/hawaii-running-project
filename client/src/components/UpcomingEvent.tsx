@@ -1,14 +1,15 @@
 import { useEffect, useState } from "react";
-import { ArrowRight, Clock, MapPin } from "lucide-react";
+import { ArrowUpRight, Clock, MapPin } from "lucide-react";
 import { Link } from "react-router-dom";
-import { Card } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import {
   CalendarEvent,
+  categoryForEvent,
+  dayAbbr,
   fetchCalendarEvents,
   formatHawaiiDate,
   formatHawaiiTime,
-  styleForEvent,
+  monthDayHawaii,
 } from "@/lib/calendar";
 
 const UpcomingEvent = () => {
@@ -30,61 +31,81 @@ const UpcomingEvent = () => {
 
   if (!loaded || !event) return null;
 
-  const { icon, color } = styleForEvent(event.title);
+  const category = categoryForEvent(event.title);
+  const CategoryIcon = category.icon;
 
   return (
-    <section className="section-padding bg-background">
-      <div className="max-w-4xl mx-auto">
-        <div className="text-center mb-8">
-          <h2 className="text-3xl font-display font-bold text-foreground mb-2">
-            Next Up
-          </h2>
-          <p className="text-muted-foreground">
-            Our next run on the calendar — come join us!
-          </p>
-        </div>
+    <section className="section-padding bg-muted/40 border-y border-border">
+      <div className="section-container">
+        <div className="grid lg:grid-cols-12 gap-10 lg:gap-16 items-start">
+          <div className="lg:col-span-4">
+            <p className="eyebrow mb-4">Next up</p>
+            <h2 className="font-display text-3xl md:text-4xl font-semibold text-foreground leading-tight">
+              Come meet us at the next run.
+            </h2>
+            <p className="mt-4 text-muted-foreground leading-relaxed">
+              Pulled live from our calendar. Show up a few minutes early and
+              say hi.
+            </p>
+          </div>
 
-        <Card className="card-float p-0 overflow-hidden">
-          <div className="grid md:grid-cols-12 gap-0">
-            <div
-              className={`md:col-span-4 ${color} p-8 text-white flex flex-col justify-center items-center text-center`}
-            >
-              <div className="text-5xl mb-3">{icon}</div>
-              <h3 className="text-xl font-display font-bold mb-1">
-                {formatHawaiiDate(event.start)}
-              </h3>
-              <div className="flex items-center text-lg font-semibold">
-                <Clock className="w-5 h-5 mr-2" />
-                {formatHawaiiTime(event.start)}
-              </div>
-            </div>
-
-            <div className="md:col-span-8 p-8 flex flex-col justify-center">
-              <h4 className="text-2xl font-display font-bold text-foreground mb-3">
-                {event.title}
-              </h4>
-              {event.location && (
-                <div className="flex items-start mb-3">
-                  <MapPin className="w-5 h-5 text-primary mt-0.5 mr-3 flex-shrink-0" />
-                  <p className="text-muted-foreground">{event.location}</p>
+          <div className="lg:col-span-8">
+            <div className="bg-card border border-border p-8 md:p-10">
+              <div className="flex items-center gap-8 pb-8 border-b border-border">
+                <div className="flex flex-col items-center justify-center h-20 w-20 border border-primary text-primary flex-shrink-0">
+                  <span className="font-display text-2xl font-semibold leading-none">
+                    {dayAbbr(event.start)}
+                  </span>
+                  <span className="text-xs mt-1 tracking-wider">
+                    {monthDayHawaii(event.start).toUpperCase()}
+                  </span>
                 </div>
-              )}
+                <div className="min-w-0">
+                  <p className="eyebrow mb-2 flex items-center gap-2">
+                    <CategoryIcon className="h-3.5 w-3.5" />
+                    {category.label}
+                  </p>
+                  <h3 className="font-display text-2xl md:text-3xl font-semibold text-foreground leading-tight truncate">
+                    {event.title}
+                  </h3>
+                </div>
+              </div>
+
+              <div className="grid sm:grid-cols-2 gap-6 py-8 text-sm">
+                <div className="flex items-start gap-3">
+                  <Clock className="h-4 w-4 mt-0.5 text-muted-foreground flex-shrink-0" />
+                  <div>
+                    <p className="text-foreground font-medium">
+                      {formatHawaiiTime(event.start)}
+                    </p>
+                    <p className="text-muted-foreground">
+                      {formatHawaiiDate(event.start)}
+                    </p>
+                  </div>
+                </div>
+                {event.location && (
+                  <div className="flex items-start gap-3">
+                    <MapPin className="h-4 w-4 mt-0.5 text-muted-foreground flex-shrink-0" />
+                    <p className="text-foreground">{event.location}</p>
+                  </div>
+                )}
+              </div>
+
               {event.description && (
-                <p className="text-muted-foreground whitespace-pre-wrap mb-4 line-clamp-3">
+                <p className="pt-2 pb-8 text-muted-foreground leading-relaxed whitespace-pre-wrap line-clamp-3">
                   {event.description}
                 </p>
               )}
-              <div>
-                <Link to="/schedule">
-                  <Button className="bg-green-700 text-white hover:bg-green-600 transition-colors">
-                    See Full Schedule
-                    <ArrowRight className="ml-2 h-4 w-4" />
-                  </Button>
-                </Link>
-              </div>
+
+              <Link to="/schedule">
+                <Button className="gap-2">
+                  See full schedule
+                  <ArrowUpRight className="h-4 w-4" />
+                </Button>
+              </Link>
             </div>
           </div>
-        </Card>
+        </div>
       </div>
     </section>
   );

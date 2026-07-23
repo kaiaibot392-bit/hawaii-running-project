@@ -1,14 +1,14 @@
 import { useEffect, useState } from "react";
-import { Calendar, Clock, MapPin, Users, Star, Mail } from "lucide-react";
-import { Card } from "@/components/ui/card";
-import { Badge } from "@/components/ui/badge";
+import { Clock, MapPin, Mail } from "lucide-react";
 import {
   CalendarEvent,
+  categoryForEvent,
   currentHawaiiWeek,
+  dayAbbr,
   dayOfWeekHawaii,
   fetchCalendarEvents,
   formatHawaiiTime,
-  styleForEvent,
+  monthDayHawaii,
 } from "@/lib/calendar";
 
 const WeeklySchedule = () => {
@@ -22,119 +22,109 @@ const WeeklySchedule = () => {
       .catch((err) => setError(err instanceof Error ? err.message : String(err)));
   }, []);
 
-  const renderCard = (event: CalendarEvent) => {
-    const { icon, color } = styleForEvent(event.title);
+  const renderRow = (event: CalendarEvent) => {
     const day = dayOfWeekHawaii(event.start);
     const time = formatHawaiiTime(event.start);
+    const category = categoryForEvent(event.title);
 
     return (
-      <Card key={event.id} className="card-float p-0 overflow-hidden">
-        <div className="grid lg:grid-cols-12 gap-0">
-          <div
-            className={`lg:col-span-3 ${color} p-6 text-white flex flex-col justify-center items-center text-center`}
-          >
-            <div className="text-4xl mb-2">{icon}</div>
-            <h3 className="text-2xl font-display font-bold mb-2">{day}</h3>
-            <div className="flex items-center text-xl font-semibold">
-              <Clock className="w-5 h-5 mr-2" />
-              {time}
-            </div>
-          </div>
-
-          <div className="lg:col-span-9 p-6">
-            <h4 className="text-2xl font-display font-bold text-foreground mb-4">
-              {event.title}
-            </h4>
-
-            <div className="grid md:grid-cols-2 gap-6">
-              <div>
-                {event.location && (
-                  <div className="flex items-start mb-3">
-                    <MapPin className="w-5 h-5 text-primary mt-0.5 mr-3 flex-shrink-0" />
-                    <p className="font-semibold text-foreground">
-                      {event.location}
-                    </p>
-                  </div>
-                )}
-                {event.description && (
-                  <div className="flex items-start mb-3">
-                    <Calendar className="w-5 h-5 text-secondary mt-0.5 mr-3 flex-shrink-0" />
-                    <p className="text-muted-foreground whitespace-pre-wrap">
-                      {event.description}
-                    </p>
-                  </div>
-                )}
-              </div>
-            </div>
-          </div>
+      <article
+        key={event.id}
+        className="grid md:grid-cols-12 gap-6 md:gap-10 items-start py-10 border-b border-border last:border-0"
+      >
+        <div className="md:col-span-2 flex md:flex-col items-baseline md:items-start gap-3 md:gap-1">
+          <span className="font-display text-3xl font-semibold text-primary">
+            {dayAbbr(event.start)}
+          </span>
+          <span className="text-sm text-muted-foreground">
+            {monthDayHawaii(event.start)}
+          </span>
         </div>
-      </Card>
+
+        <div className="md:col-span-7">
+          <p className="eyebrow mb-3 flex items-center gap-2">
+            <category.icon className="h-3.5 w-3.5" />
+            {category.label}
+          </p>
+          <h3 className="font-display text-2xl md:text-3xl font-semibold leading-tight text-foreground">
+            {event.title}
+          </h3>
+          {event.description && (
+            <p className="mt-3 text-muted-foreground leading-relaxed whitespace-pre-wrap max-w-2xl">
+              {event.description}
+            </p>
+          )}
+        </div>
+
+        <div className="md:col-span-3 space-y-3 text-sm">
+          <div className="flex items-start gap-3">
+            <Clock className="h-4 w-4 mt-0.5 text-muted-foreground flex-shrink-0" />
+            <div>
+              <p className="text-foreground font-medium">{time}</p>
+              <p className="text-muted-foreground">{day}</p>
+            </div>
+          </div>
+          {event.location && (
+            <div className="flex items-start gap-3">
+              <MapPin className="h-4 w-4 mt-0.5 text-muted-foreground flex-shrink-0" />
+              <p className="text-foreground">{event.location}</p>
+            </div>
+          )}
+        </div>
+      </article>
     );
   };
 
   return (
-    <section
-      id="schedule"
-      className="section-padding bg-gradient-to-b from-background to-muted/30"
-    >
-      <div className="max-w-7xl mx-auto">
-        <div className="text-center mb-16">
-          <h2 className="text-4xl sm:text-5xl font-display font-bold text-gradient-ocean mb-6">
-            This Week's Runs
-          </h2>
-          <div className="flex flex-wrap justify-center gap-4 mb-8">
-            <Badge className="bg-accent text-accent-foreground text-lg px-4 py-2">
-              <Users className="w-4 h-4 mr-2" />
-              Everyone welcome
-            </Badge>
-            <Badge className="bg-primary text-primary-foreground text-lg px-4 py-2">
-              <Star className="w-4 h-4 mr-2" />
-              All levels
-            </Badge>
-            <Badge className="bg-secondary text-secondary-foreground text-lg px-4 py-2">
-              💚 Free!
-            </Badge>
-          </div>
-          <p className="text-muted-foreground mb-4 text-sm">
-            Live from our Google Calendar
+    <section className="section-padding">
+      <div className="section-container">
+        <header className="max-w-3xl mb-16">
+          <p className="eyebrow mb-4">Schedule</p>
+          <h1 className="font-display text-4xl md:text-5xl lg:text-6xl font-semibold tracking-tight text-foreground">
+            This week's runs.
+          </h1>
+          <p className="mt-6 text-lg text-muted-foreground leading-relaxed">
+            Our calendar updates live. All runs are free and open to everyone —
+            show up, lace up, and we'll see you out there.
           </p>
-        </div>
+        </header>
 
-        <div className="grid gap-8 mb-16">
-          {error && (
-            <Card className="card-float p-6 text-center text-destructive">
-              Couldn't load the schedule right now. Please try again later.
-            </Card>
-          )}
-          {!error && events === null && (
-            <Card className="card-float p-6 text-center text-muted-foreground">
-              Loading this week's runs…
-            </Card>
-          )}
-          {!error && events && events.length === 0 && (
-            <Card className="card-float p-6 text-center text-muted-foreground">
-              No runs scheduled this week. Check back soon!
-            </Card>
-          )}
-          {!error && events?.map(renderCard)}
-        </div>
+        {error && (
+          <div className="py-16 border-y border-border text-center text-destructive">
+            Couldn't load the schedule right now. Please try again later.
+          </div>
+        )}
+        {!error && events === null && (
+          <div className="py-16 border-y border-border text-center text-muted-foreground">
+            Loading this week's runs…
+          </div>
+        )}
+        {!error && events && events.length === 0 && (
+          <div className="py-16 border-y border-border text-center text-muted-foreground">
+            No runs scheduled this week. Check back soon.
+          </div>
+        )}
 
-        <div className="text-center">
-          <Card className="card-float p-8 bg-gradient-to-r from-primary/5 to-secondary/5">
-            <h3 className="text-2xl font-display font-bold mb-4 text-foreground">
-              Questions?
-            </h3>
-            <div className="flex items-center justify-center space-x-2 text-lg">
-              <Mail className="h-5 w-5 text-accent" />
-              <span className="text-muted-foreground">Email us at:</span>
-              <a
-                href="mailto:hawaiirunningproject@gmail.com"
-                className="text-primary hover:text-primary/80 font-semibold transition-colors"
-              >
-                hawaiirunningproject@gmail.com
-              </a>
-            </div>
-          </Card>
+        {!error && events && events.length > 0 && (
+          <div className="border-t border-border">
+            {events.map(renderRow)}
+          </div>
+        )}
+
+        <div className="mt-20 pt-12 border-t border-border flex flex-col sm:flex-row items-start sm:items-center justify-between gap-6">
+          <div>
+            <p className="eyebrow mb-2">Questions</p>
+            <p className="text-foreground text-lg">
+              New to running? Returning after a break? Reach out — we've got you.
+            </p>
+          </div>
+          <a
+            href="mailto:hawaiirunningproject@gmail.com"
+            className="inline-flex items-center gap-2 text-sm font-medium text-primary hover:underline"
+          >
+            <Mail className="h-4 w-4" />
+            hawaiirunningproject@gmail.com
+          </a>
         </div>
       </div>
     </section>

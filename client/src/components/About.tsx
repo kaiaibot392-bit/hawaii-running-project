@@ -1,164 +1,172 @@
-import { Heart, Users, Calendar, Trophy } from "lucide-react";
-import { Card } from "@/components/ui/card";
+import { Dumbbell, HeartPulse, Target, Trophy } from "lucide-react";
+
+const PILLARS = [
+  {
+    icon: HeartPulse,
+    title: "Run · Fitness · Nutrition",
+    description:
+      "Accessible training, wellness education, and real advice for every level.",
+  },
+  {
+    icon: Dumbbell,
+    title: "Coaching",
+    description:
+      "Personalized coaching, form work, and strength guidance from certified pros.",
+  },
+  {
+    icon: Target,
+    title: "Weekly Runs",
+    description:
+      "Group runs four nights a week across the island. Every pace welcome.",
+  },
+  {
+    icon: Trophy,
+    title: "Races & Events",
+    description:
+      "Community events and races throughout the year — from keiki fun runs to marathons.",
+  },
+];
+
+const PROGRAMS = [
+  "Community run clubs",
+  "Public events and races",
+  "Corporate running programs",
+  "Programs for overweight and obese residents",
+  "Programs for unhoused residents",
+  "Programs for those recovering from substance abuse",
+  "Keiki programs",
+  "Women's programs",
+  "Programs for people with physical challenges",
+  "Single-parent programs",
+  "Ex-offender programs",
+  "Programs for overworked two-income families",
+];
+
+const BOARD = [
+  { name: "Kawika Carlson", role: "Founder" },
+  { name: "Weni Amrich", role: "Chair" },
+  { name: "Peter Hill", role: "Vice-Chair" },
+  { name: "Moana Wong", role: "Secretary" },
+  { name: "Tim Ferber", role: "Treasurer" },
+  { name: "Seth August", role: "Past Chair" },
+];
 
 const About = () => {
-  const services = [
-    {
-      icon: Heart,
-      title: "Run, Fitness, and Nutrition",
-      description: "Comprehensive health programs focused on running, fitness training, and nutritional guidance."
-    },
-    {
-      icon: Users,
-      title: "Coaching",
-      description: "Expert coaching and guidance for runners of all levels and abilities."
-    },
-    {
-      icon: Calendar,
-      title: "Weekly Runs",
-      description: "Group training sessions five days a week - all running levels welcome to join at any time!"
-    },
-    {
-      icon: Trophy,
-      title: "Annual Events and Races",
-      description: "Exciting community events and competitive races throughout the year."
-    }
-  ];
-
-  const programs = [
-    "Run clubs in communities and schools",
-    "Public events and races", 
-    "Corporate running programs",
-    "Programs designed specifically for the overweight and obese",
-    "Programs for homeless individuals",
-    "Programs for alcohol and substance abusers",
-    "Kids programs",
-    "Women's programs", 
-    "Programs for the physically challenged",
-    "Single parent programs",
-    "Ex-offender programs",
-    "Programs for overworked two-income families"
-  ];
-
-  const boardMembers = [
-    { name: "Kawika Carlson", role: "Founder" },
-    { name: "Weni Amrich", role: "Chair" },
-    { name: "Peter Hill", role: "Vice-Chair" },
-    { name: "Moana Wong", role: "Secretary" },
-    { name: "Tim Ferber", role: "Treasurer" },
-    { name: "Seth August", role: "Past Chair" },
-  ];
-
   return (
-    <section id="about" className="section-padding bg-muted/30">
-      <div className="max-w-7xl mx-auto">
-        {/* Header */}
-        <div className="text-center mb-16">
-          <h2 className="text-4xl sm:text-5xl font-display font-bold text-gradient-ocean mb-6">
-            What is the Hawaii Running Project?
-          </h2>
-          <p className="text-xl text-muted-foreground max-w-4xl mx-auto leading-relaxed">
-            An ambitious one-of-a-kind project that will aggressively try to solve many of Hawaiʻi's health and social problems.
-          </p>
+    <section className="section-padding">
+      <div className="section-container">
+        <div className="grid lg:grid-cols-12 gap-10 lg:gap-16 mb-24">
+          <div className="lg:col-span-4">
+            <p className="eyebrow mb-4">About</p>
+            <div className="display-rule mb-8" />
+            <h2 className="font-display text-4xl lg:text-5xl font-semibold tracking-tight text-foreground leading-tight">
+              A running club on a public-health mission.
+            </h2>
+          </div>
+          <div className="lg:col-span-8 lg:pt-2">
+            <p className="text-xl text-foreground leading-relaxed">
+              The Hawaii Running Project is an ambitious, one-of-a-kind
+              nonprofit working to address many of Hawaiʻi's health and social
+              problems through the simple act of running together.
+            </p>
+            <p className="mt-6 text-muted-foreground leading-relaxed">
+              We run four nights a week across Oʻahu — all paces, all ages, all
+              abilities. Our programs reach into schools, workplaces, and
+              communities that traditional fitness services miss. Everything we
+              do is free.
+            </p>
+          </div>
         </div>
 
-        {/* Services Grid */}
-        <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-8 mb-16">
-          {services.map((service, index) => {
-            const Icon = service.icon;
+        <div className="grid md:grid-cols-2 lg:grid-cols-4 border-y border-border">
+          {PILLARS.map((p, idx) => {
+            const Icon = p.icon;
             return (
-              <Card key={service.title} className="card-float p-6 text-center group hover:scale-105 transition-transform duration-300">
-                <div className="w-16 h-16 mx-auto mb-4 bg-gradient-ocean rounded-full flex items-center justify-center group-hover:scale-110 transition-transform duration-300">
-                  <Icon className="h-8 w-8 text-white" />
-                </div>
-                <h4 className="text-xl font-display font-semibold mb-3 text-foreground">
-                  {service.title}
-                </h4>
-                <p className="text-muted-foreground leading-relaxed">
-                  {service.description}
+              <div
+                key={p.title}
+                className={`p-8 lg:p-10 border-border ${
+                  idx < PILLARS.length - 1
+                    ? "border-b md:border-b-0 md:border-r last:border-r-0"
+                    : ""
+                }`}
+              >
+                <Icon className="h-5 w-5 text-primary mb-6" />
+                <h3 className="font-display text-lg font-semibold text-foreground mb-2">
+                  {p.title}
+                </h3>
+                <p className="text-sm text-muted-foreground leading-relaxed">
+                  {p.description}
                 </p>
-              </Card>
+              </div>
             );
           })}
         </div>
 
-        {/* Training Schedule Highlight */}
-        <div className="text-center mb-16">
-          <div className="card-float p-8 bg-gradient-to-r from-primary/10 to-secondary/10">
-            <p className="text-lg text-muted-foreground max-w-3xl mx-auto">
-              Hawaii Running Project offers group training sessions <strong>five days a week</strong>, all running levels are welcome to join at any time! Check out our <strong>CALENDAR</strong> for details.
+        <div className="grid md:grid-cols-2 gap-px bg-border my-24">
+          <div className="bg-background p-10 lg:p-14">
+            <p className="eyebrow mb-4">Mission</p>
+            <p className="font-display text-2xl lg:text-3xl text-foreground leading-snug">
+              Improve overall health in the State of Hawaiʻi and reduce obesity
+              of its residents by creating running programs that are available
+              to everyone.
+            </p>
+          </div>
+          <div className="bg-background p-10 lg:p-14">
+            <p className="eyebrow mb-4">Vision</p>
+            <p className="font-display text-2xl lg:text-3xl text-foreground leading-snug">
+              Community-service running programs that meet the health and
+              wellness needs of every resident, regardless of circumstance.
             </p>
           </div>
         </div>
 
-        {/* Mission & Vision */}
-        <div className="grid lg:grid-cols-2 gap-12 mb-16">
-          <div className="card-float p-8">
-            <h3 className="text-2xl font-display font-semibold text-gradient-island mb-4">
-              Mission Statement
+        <div className="grid lg:grid-cols-12 gap-10 lg:gap-16 mb-24">
+          <div className="lg:col-span-4">
+            <p className="eyebrow mb-4">Programs</p>
+            <h3 className="font-display text-3xl font-semibold text-foreground leading-tight">
+              Running, reaching everyone.
             </h3>
-            <p className="text-muted-foreground leading-relaxed text-lg">
-              To improve the overall health in the State of Hawaiʻi and reduce obesity of its residents by creating running programs that are available to everyone in Hawaiʻi.
+            <p className="mt-4 text-muted-foreground leading-relaxed">
+              We design specialized programs to serve communities that aren't
+              always welcomed by traditional fitness culture.
             </p>
           </div>
-
-          <div className="card-float p-8">
-            <h3 className="text-2xl font-display font-semibold text-gradient-island mb-4">
-              Vision Statement
-            </h3>
-            <p className="text-muted-foreground leading-relaxed text-lg mb-4">
-              Implement a variety of community service running programs to meet the health and wellness needs of all including:
-            </p>
-            <ul className="text-muted-foreground leading-relaxed space-y-2">
-              {programs.slice(0, 6).map((program, index) => (
-                <li key={index} className="flex items-start">
-                  <span className="w-2 h-2 bg-secondary rounded-full mt-2.5 mr-3 flex-shrink-0"></span>
-                  {program}
-                </li>
-              ))}
-            </ul>
-          </div>
+          <ul className="lg:col-span-8 grid sm:grid-cols-2 gap-x-8 gap-y-4 lg:pt-4">
+            {PROGRAMS.map((program) => (
+              <li
+                key={program}
+                className="flex items-start gap-3 text-foreground border-t border-border pt-4"
+              >
+                <span className="h-px w-4 bg-primary mt-3 flex-shrink-0" />
+                <span>{program}</span>
+              </li>
+            ))}
+          </ul>
         </div>
 
-        {/* Extended Programs List */}
-        <div className="mb-16">
-          <div className="card-float p-8">
-            <h3 className="text-2xl font-display font-semibold text-gradient-island mb-6 text-center">
-              Specialized Programs
-            </h3>
-            <div className="grid sm:grid-cols-2 gap-4">
-              {programs.slice(6).map((program, index) => (
-                <div key={index} className="flex items-start">
-                  <span className="w-2 h-2 bg-secondary rounded-full mt-2.5 mr-3 flex-shrink-0"></span>
-                  <span className="text-muted-foreground">{program}</span>
-                </div>
-              ))}
+        <div className="pt-16 border-t border-border">
+          <div className="grid lg:grid-cols-12 gap-10 lg:gap-16 mb-12">
+            <div className="lg:col-span-4">
+              <p className="eyebrow mb-4">Leadership</p>
+              <h3 className="font-display text-3xl font-semibold text-foreground leading-tight">
+                Board &amp; Committee
+              </h3>
             </div>
-          </div>
-        </div>
-
-        {/* Board and Committee */}
-        <div>
-          <div className="card-float p-8">
-            <h3 className="text-2xl font-display font-semibold text-gradient-island mb-6 text-center">
-              Board and Committee
-            </h3>
-            <p className="text-muted-foreground leading-relaxed text-lg mb-8 text-center max-w-4xl mx-auto">
-              The main objective of the Board and Committee will be to give direction to the Hawaii Running Project by voicing the opinion of the community. Determine the need for projects and help establish priority.
+            <p className="lg:col-span-8 text-muted-foreground leading-relaxed lg:pt-4">
+              Our board and committee give direction to the Hawaii Running
+              Project by voicing the community, identifying needs, and setting
+              priorities.
             </p>
-            
-            <h4 className="text-xl font-display font-semibold text-foreground mb-6 text-center">
-              2025 HRP Board & Committee Leaders
-            </h4>
-            
-            <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4">
-              {boardMembers.map((member, index) => (
-                <div key={index} className="bg-muted/20 rounded-lg p-4 text-center">
-                  <h5 className="font-semibold text-foreground">{member.name}</h5>
-                  <p className="text-sm text-muted-foreground">{member.role}</p>
-                </div>
-              ))}
-            </div>
+          </div>
+          <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-px bg-border border border-border">
+            {BOARD.map((m) => (
+              <div key={m.name} className="bg-background p-8">
+                <p className="font-display text-lg font-semibold text-foreground">
+                  {m.name}
+                </p>
+                <p className="mt-1 text-sm text-muted-foreground">{m.role}</p>
+              </div>
+            ))}
           </div>
         </div>
       </div>
