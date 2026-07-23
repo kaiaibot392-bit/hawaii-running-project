@@ -6,6 +6,7 @@ import Footer from '@/components/Footer';
 import Home from '@/pages/Home';
 import AboutPage from '@/pages/AboutPage';
 import SchedulePage from '@/pages/SchedulePage';
+import HKURPage from '@/pages/HKURPage';
 import JoinPage from '@/pages/JoinPage';
 import StorePage from '@/pages/StorePage';
 import CoachingPage from '@/pages/CoachingPage';
@@ -23,6 +24,7 @@ function App() {
             <Route path="/" element={<Home />} />
             <Route path="/about" element={<AboutPage />} />
             <Route path="/schedule" element={<SchedulePage />} />
+            <Route path="/hkur" element={<HKURPage />} />
             <Route path="/join" element={<JoinPage />} />
             <Route path="/store" element={<StorePage />} />
             <Route path="/coaching" element={<CoachingPage />} />

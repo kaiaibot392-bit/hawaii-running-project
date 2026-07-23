@@ -1,5 +1,4 @@
-/* Hawaiian-inspired Sports & Recreation Community Design System */
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Poppins:wght@300;400;500;600;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Space+Grotesk:wght@400;500;600;700&display=swap');
 
 @tailwind base;
 @tailwind components;
@@ -7,113 +6,90 @@
 
 @layer base {
   :root {
-    /* Hawaiian-inspired color palette */
-    --background: 28 40% 98%;
-    --foreground: 210 15% 15%;
+    /* Core neutrals — warm off-white page, deep charcoal ink */
+    --background: 40 24% 97%;
+    --foreground: 210 12% 12%;
 
     --card: 0 0% 100%;
-    --card-foreground: 210 15% 15%;
+    --card-foreground: 210 12% 12%;
 
     --popover: 0 0% 100%;
-    --popover-foreground: 210 15% 15%;
+    --popover-foreground: 210 12% 12%;
 
-    /* Tropical ocean-inspired primary colors */
-    --primary: 200 85% 45%;
-    --primary-foreground: 0 0% 100%;
-    --primary-muted: 200 65% 85%;
+    /* Primary — deep forest green from the HRP logo */
+    --primary: 145 42% 22%;
+    --primary-foreground: 40 24% 97%;
+    --primary-muted: 145 20% 88%;
 
-    /* Lush green secondary colors */
-    --secondary: 140 60% 40%;
-    --secondary-foreground: 0 0% 100%;
-    --secondary-muted: 140 45% 90%;
+    /* Secondary — a softer mid-green for subtle states */
+    --secondary: 145 20% 92%;
+    --secondary-foreground: 145 42% 22%;
+    --secondary-muted: 145 25% 95%;
 
-    /* Warm sand-inspired muted colors */
-    --muted: 42 40% 95%;
-    --muted-foreground: 210 15% 45%;
+    /* Neutral muted tones */
+    --muted: 40 18% 94%;
+    --muted-foreground: 210 8% 40%;
 
-    /* Sunset accent colors */
-    --accent: 25 85% 60%;
+    /* Accent — single warm terracotta, used sparingly */
+    --accent: 14 58% 48%;
     --accent-foreground: 0 0% 100%;
-    --accent-muted: 25 60% 92%;
+    --accent-muted: 14 40% 94%;
 
-    /* Warning/coral colors */
-    --destructive: 5 85% 55%;
+    --destructive: 0 62% 45%;
     --destructive-foreground: 0 0% 100%;
 
-    --border: 42 30% 88%;
-    --input: 42 30% 92%;
-    --ring: 200 85% 45%;
+    --border: 40 14% 88%;
+    --input: 40 14% 92%;
+    --ring: 145 42% 22%;
 
-    --radius: 0.75rem;
+    --radius: 0.25rem;
 
-    /* Hawaiian-inspired gradients */
-    --gradient-ocean: linear-gradient(135deg, hsl(140 70% 35%), hsl(140 80% 40%));
-    --gradient-sunset: linear-gradient(135deg, hsl(25 85% 60%), hsl(45 80% 65%));
-    --gradient-island: linear-gradient(135deg, hsl(140 70% 35%), hsl(120 60% 40%));
-    --gradient-hero: linear-gradient(135deg, hsl(140 70% 35% / 0.9), hsl(140 60% 40% / 0.9));
-    
-    /* Elegant shadows */
-    --shadow-soft: 0 4px 20px -2px hsl(200 85% 45% / 0.1);
-    --shadow-medium: 0 8px 30px -4px hsl(200 85% 45% / 0.15);
-    --shadow-large: 0 20px 60px -10px hsl(200 85% 45% / 0.2);
-    
-    /* Smooth transitions */
-    --transition-smooth: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-    --transition-bounce: all 0.4s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+    /* Subtle layered shadows */
+    --shadow-soft: 0 1px 2px 0 hsl(210 12% 12% / 0.04);
+    --shadow-medium: 0 4px 12px -2px hsl(210 12% 12% / 0.08);
+    --shadow-large: 0 12px 32px -8px hsl(210 12% 12% / 0.12);
 
-    --sidebar-background: 0 0% 98%;
-
-    --sidebar-foreground: 240 5.3% 26.1%;
-
-    --sidebar-primary: 240 5.9% 10%;
-
-    --sidebar-primary-foreground: 0 0% 98%;
-
-    --sidebar-accent: 240 4.8% 95.9%;
-
-    --sidebar-accent-foreground: 240 5.9% 10%;
-
-    --sidebar-border: 220 13% 91%;
-
-    --sidebar-ring: 217.2 91.2% 59.8%;
+    --sidebar-background: 40 24% 97%;
+    --sidebar-foreground: 210 12% 12%;
+    --sidebar-primary: 145 42% 22%;
+    --sidebar-primary-foreground: 40 24% 97%;
+    --sidebar-accent: 40 18% 94%;
+    --sidebar-accent-foreground: 145 42% 22%;
+    --sidebar-border: 40 14% 88%;
+    --sidebar-ring: 145 42% 22%;
   }
 
   .dark {
-    --background: 210 25% 8%;
-    --foreground: 28 40% 95%;
+    --background: 150 12% 8%;
+    --foreground: 40 20% 94%;
 
-    --card: 210 25% 10%;
-    --card-foreground: 28 40% 95%;
+    --card: 150 12% 10%;
+    --card-foreground: 40 20% 94%;
 
-    --popover: 210 25% 10%;
-    --popover-foreground: 28 40% 95%;
+    --popover: 150 12% 10%;
+    --popover-foreground: 40 20% 94%;
 
-    --primary: 200 85% 55%;
-    --primary-foreground: 210 25% 8%;
-    --primary-muted: 200 50% 25%;
+    --primary: 145 35% 65%;
+    --primary-foreground: 150 12% 8%;
+    --primary-muted: 145 20% 20%;
 
-    --secondary: 140 50% 50%;
-    --secondary-foreground: 210 25% 8%;
-    --secondary-muted: 140 30% 20%;
+    --secondary: 150 10% 16%;
+    --secondary-foreground: 40 20% 94%;
+    --secondary-muted: 150 10% 14%;
 
-    --muted: 210 20% 15%;
-    --muted-foreground: 28 20% 65%;
+    --muted: 150 8% 14%;
+    --muted-foreground: 40 10% 60%;
 
-    --accent: 25 75% 65%;
-    --accent-foreground: 210 25% 8%;
-    --accent-muted: 25 40% 20%;
+    --accent: 14 58% 58%;
+    --accent-foreground: 150 12% 8%;
+    --accent-muted: 14 30% 18%;
 
-    --destructive: 5 75% 60%;
-    --destructive-foreground: 28 40% 95%;
+    --destructive: 0 62% 55%;
+    --destructive-foreground: 40 20% 94%;
 
-    --border: 210 20% 18%;
-    --input: 210 20% 15%;
-    --ring: 200 85% 55%;
-    
-    --gradient-ocean: linear-gradient(135deg, hsl(140 70% 40%), hsl(140 80% 45%));
-    --gradient-sunset: linear-gradient(135deg, hsl(25 75% 65%), hsl(45 70% 70%));
-    --gradient-island: linear-gradient(135deg, hsl(140 70% 40%), hsl(120 60% 45%));
-    --gradient-hero: linear-gradient(135deg, hsl(140 70% 40% / 0.9), hsl(140 60% 45% / 0.9));
+    --border: 150 8% 18%;
+    --input: 150 8% 14%;
+    --ring: 145 35% 65%;
   }
 }
 
@@ -122,48 +98,42 @@
     @apply border-border;
   }
 
+  html {
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
   body {
     @apply bg-background text-foreground font-sans;
-    font-family: 'Inter', sans-serif;
+    font-family: 'Inter', system-ui, sans-serif;
+    font-feature-settings: "ss01", "cv11";
   }
 
   h1, h2, h3, h4, h5, h6 {
-    font-family: 'Poppins', sans-serif;
-    @apply font-semibold;
+    font-family: 'Space Grotesk', system-ui, sans-serif;
+    font-weight: 600;
+    letter-spacing: -0.01em;
+  }
+
+  h1, h2 {
+    letter-spacing: -0.02em;
   }
 }
 
 @layer components {
-  /* Hawaiian-inspired component classes */
-  .btn-ocean {
-    @apply bg-gradient-to-r from-green-700 to-green-600 text-white hover:shadow-lg transform hover:scale-105 transition-all duration-300;
-  }
-  
-  .btn-island {
-    @apply bg-gradient-to-r from-secondary to-green-600 text-white hover:shadow-lg transform hover:scale-105 transition-all duration-300;
-  }
-  
-  .btn-sunset {
-    @apply bg-gradient-to-r from-accent to-orange-500 text-white hover:shadow-lg transform hover:scale-105 transition-all duration-300;
-  }
-
-  .card-float {
-    @apply bg-card rounded-xl shadow-soft hover:shadow-medium transition-all duration-300 hover:-translate-y-1;
-  }
-
-  .text-gradient-ocean {
-    @apply bg-gradient-to-r from-green-700 to-green-600 bg-clip-text text-transparent;
-  }
-
-  .text-gradient-island {
-    @apply bg-gradient-to-r from-secondary to-green-600 bg-clip-text text-transparent;
-  }
-
-  .hero-overlay {
-    @apply absolute inset-0 bg-gradient-to-b from-black/40 via-black/20 to-black/60;
-  }
-
   .section-padding {
-    @apply px-6 py-16 md:px-8 lg:px-12;
+    @apply px-6 py-20 md:px-10 md:py-24 lg:px-16 lg:py-32;
+  }
+
+  .eyebrow {
+    @apply text-xs font-medium tracking-[0.18em] uppercase text-muted-foreground;
+  }
+
+  .section-container {
+    @apply max-w-7xl mx-auto;
+  }
+
+  .display-rule {
+    @apply h-px w-12 bg-primary;
   }
 }

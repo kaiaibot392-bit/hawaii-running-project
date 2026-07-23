@@ -20,7 +20,7 @@ export default {
                 extend: {
                         fontFamily: {
                                 sans: ['Inter', 'system-ui', 'sans-serif'],
-                                display: ['Poppins', 'system-ui', 'sans-serif'],
+                                display: ['"Space Grotesk"', 'system-ui', 'sans-serif'],
                         },
                         colors: {
                                 border: 'hsl(var(--border))',
@@ -59,12 +59,6 @@ export default {
                                         DEFAULT: 'hsl(var(--card))',
                                         foreground: 'hsl(var(--card-foreground))'
                                 }
-                        },
-                        backgroundImage: {
-                                'gradient-ocean': 'var(--gradient-ocean)',
-                                'gradient-sunset': 'var(--gradient-sunset)',
-                                'gradient-island': 'var(--gradient-island)',
-                                'gradient-hero': 'var(--gradient-hero)',
                         },
                         boxShadow: {
                                 'soft': 'var(--shadow-soft)',

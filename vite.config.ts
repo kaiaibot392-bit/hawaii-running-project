@@ -7,14 +7,16 @@ const devApiPlugin = (): PluginOption => ({
   name: "dev-api",
   configureServer(server) {
     server.middlewares.use(async (req, res, next) => {
-      if (!req.url?.startsWith("/api/calendar")) return next();
+      const route = ["/api/calendar", "/api/hkur-results"].find((r) =>
+        req.url?.startsWith(r)
+      );
+      if (!route) return next();
+      const file = route === "/api/calendar" ? "api/calendar.ts" : "api/hkur-results.ts";
       try {
-        const mod = await server.ssrLoadModule(
-          path.resolve(__dirname, "api/calendar.ts")
-        );
+        const mod = await server.ssrLoadModule(path.resolve(__dirname, file));
         await mod.default(req, res);
       } catch (err) {
-        console.error("[dev-api] calendar error", err);
+        console.error(`[dev-api] ${route} error`, err);
         res.statusCode = 500;
         res.setHeader("Content-Type", "application/json; charset=utf-8");
         res.end(

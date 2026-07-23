@@ -69,20 +69,43 @@ export function formatHawaiiDate(iso: string): string {
   });
 }
 
-const ICON_RULES: Array<{ pattern: RegExp; icon: string; color: string }> = [
-  { pattern: /tnt|tuesday night/i, icon: "🔥", color: "bg-orange-500" },
-  { pattern: /hoka/i, icon: "🏃‍♀️", color: "bg-blue-500" },
-  { pattern: /fireworks|potluck/i, icon: "🎆", color: "bg-purple-500" },
-  { pattern: /kapiolani|qk/i, icon: "🏨", color: "bg-green-700" },
-  { pattern: /sunday|long run/i, icon: "☀️", color: "bg-yellow-500" },
-  { pattern: /race|5k|10k|marathon/i, icon: "🏁", color: "bg-red-500" },
+import {
+  Flag,
+  Footprints,
+  Mountain,
+  Sparkles,
+  Users,
+  Zap,
+  type LucideIcon,
+} from "lucide-react";
+
+type EventCategory = { label: string; icon: LucideIcon };
+
+const CATEGORY_RULES: Array<{ pattern: RegExp } & EventCategory> = [
+  { pattern: /tnt|tuesday night|training|interval|track/i, label: "Training", icon: Zap },
+  { pattern: /long run|sunday/i, label: "Long Run", icon: Mountain },
+  { pattern: /fireworks|potluck|social|banquet/i, label: "Social", icon: Sparkles },
+  { pattern: /hoka|qk|kapiolani|run club/i, label: "Group Run", icon: Users },
+  { pattern: /race|marathon|ultra|half/i, label: "Race", icon: Flag },
 ];
 
-export function styleForEvent(title: string): { icon: string; color: string } {
-  for (const rule of ICON_RULES) {
-    if (rule.pattern.test(title)) {
-      return { icon: rule.icon, color: rule.color };
-    }
+export function categoryForEvent(title: string): EventCategory {
+  for (const rule of CATEGORY_RULES) {
+    if (rule.pattern.test(title)) return { label: rule.label, icon: rule.icon };
   }
-  return { icon: "🏃", color: "bg-primary" };
+  return { label: "Run", icon: Footprints };
+}
+
+export function dayAbbr(iso: string): string {
+  return new Date(iso)
+    .toLocaleDateString("en-US", { timeZone: HAWAII_TZ, weekday: "short" })
+    .toUpperCase();
+}
+
+export function monthDayHawaii(iso: string): string {
+  return new Date(iso).toLocaleDateString("en-US", {
+    timeZone: HAWAII_TZ,
+    month: "short",
+    day: "numeric",
+  });
 }

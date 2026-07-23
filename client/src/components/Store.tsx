@@ -1,98 +1,73 @@
-import { ShoppingBag, ExternalLink, Heart } from "lucide-react";
+import { ArrowUpRight } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import { Card } from "@/components/ui/card";
+
+const STORES = [
+  {
+    name: "HRP Store",
+    tagline: "Official club merch",
+    description:
+      "Running gear, apparel, and accessories. Every purchase funds our programs and keeps the club free and open to everyone.",
+    href: "https://runsignup.com/Club/Store/HI/Honolulu/HawaiiRunningProject",
+    cta: "Shop HRP",
+  },
+  {
+    name: "HKUR Store",
+    tagline: "Hawaii Kai Ultra Run",
+    description:
+      "Commemorate one of Hawaii's most challenging and scenic ultras with exclusive HKUR merchandise.",
+    href: "https://runsignup.com/Race/Store/HI/Honolulu/HawaiiKaiUltraRunXTreme",
+    cta: "Shop HKUR",
+  },
+];
 
 const Store = () => {
   return (
-    <section id="store" className="section-padding bg-muted/20">
-      <div className="max-w-6xl mx-auto">
-        {/* Header */}
-        <div className="text-center mb-16">
-          <h2 className="text-4xl sm:text-5xl font-display font-bold text-gradient-ocean mb-6">
-            HRP Store
-          </h2>
-          <p className="text-xl text-muted-foreground max-w-3xl mx-auto leading-relaxed">
-            Thank you for supporting our club! Hawaii Running Project is a 501(c)(3) organization, 
-            all proceeds from merchandise sales go directly to our organization.
-          </p>
+    <section className="section-padding">
+      <div className="section-container">
+        <div className="grid lg:grid-cols-12 gap-10 lg:gap-16 mb-16">
+          <div className="lg:col-span-5">
+            <p className="eyebrow mb-4">Store</p>
+            <div className="display-rule mb-8" />
+            <h2 className="font-display text-4xl lg:text-5xl font-semibold tracking-tight text-foreground leading-tight">
+              Gear with a purpose.
+            </h2>
+          </div>
+          <div className="lg:col-span-7 lg:pt-2">
+            <p className="text-lg text-muted-foreground leading-relaxed">
+              We're a 501(c)(3) nonprofit. Every purchase goes directly to
+              training, events, coaching, and community programs across
+              Hawaiʻi. Mahalo for your support.
+            </p>
+          </div>
         </div>
 
-        <div className="grid lg:grid-cols-2 gap-12 mb-16">
-          {/* HRP Store */}
-          <Card className="card-float p-8 text-center">
-            <div className="w-20 h-20 mx-auto mb-6 bg-gradient-ocean rounded-full flex items-center justify-center">
-              <ShoppingBag className="h-10 w-10 text-white" />
-            </div>
-            
-            <h3 className="text-3xl font-display font-bold mb-6 text-foreground">
-              HRP STORE
-            </h3>
-            
-            <p className="text-muted-foreground text-lg leading-relaxed mb-8">
-              Show your Hawaii Running Project pride with our official merchandise! 
-              From comfortable running gear to stylish accessories, every purchase 
-              supports our mission to build healthier communities across Hawaii.
-            </p>
-
-            <Button 
-              size="lg" 
-              className="btn-ocean text-lg px-8 py-4 inline-flex items-center space-x-2"
-              onClick={() => window.open('https://runsignup.com/Club/Store/HI/Honolulu/HawaiiRunningProject', '_blank')}
+        <div className="grid md:grid-cols-2 border border-border">
+          {STORES.map((store, idx) => (
+            <div
+              key={store.name}
+              className={`p-10 lg:p-14 flex flex-col ${
+                idx === 0 ? "border-b md:border-b-0 md:border-r border-border" : ""
+              }`}
             >
-              <span>Visit HRP Online Store</span>
-              <ExternalLink className="h-4 w-4" />
-            </Button>
-          </Card>
-
-          {/* HKUR Store */}
-          <Card className="card-float p-8 text-center">
-            <div className="w-20 h-20 mx-auto mb-6 bg-gradient-sunset rounded-full flex items-center justify-center">
-              <ShoppingBag className="h-10 w-10 text-white" />
-            </div>
-            
-            <h3 className="text-3xl font-display font-bold mb-6 text-foreground">
-              HKUR STORE
-            </h3>
-            
-            <p className="text-muted-foreground text-lg leading-relaxed mb-4">
-              Did you know the Hawaii Kai Ultra Run now also has it's own merch store?
-            </p>
-            
-            <p className="text-muted-foreground leading-relaxed mb-8">
-              Get exclusive Hawaii Kai Ultra Run merchandise to commemorate your 
-              participation in one of Hawaii's most challenging and scenic running events!
-            </p>
-
-            <Button 
-              size="lg" 
-              className="btn-sunset text-lg px-8 py-4 inline-flex items-center space-x-2"
-              onClick={() => window.open('https://runsignup.com/Race/Store/HI/Honolulu/HawaiiKaiUltraRunXTreme', '_blank')}
-            >
-              <span>Visit HKUR Online Store</span>
-              <ExternalLink className="h-4 w-4" />
-            </Button>
-          </Card>
-        </div>
-
-        {/* Support Message */}
-        <div className="text-center">
-          <Card className="card-float p-8 bg-gradient-to-r from-primary/5 to-secondary/5">
-            <div className="flex items-center justify-center mb-4">
-              <Heart className="h-8 w-8 text-accent mr-3" />
-              <h3 className="text-2xl font-display font-bold text-foreground">
-                Supporting Our Mission
+              <p className="eyebrow mb-4">{store.tagline}</p>
+              <h3 className="font-display text-3xl lg:text-4xl font-semibold text-foreground mb-6">
+                {store.name}
               </h3>
+              <p className="text-muted-foreground leading-relaxed mb-10 flex-1">
+                {store.description}
+              </p>
+              <a href={store.href} target="_blank" rel="noopener noreferrer">
+                <Button className="gap-2">
+                  {store.cta}
+                  <ArrowUpRight className="h-4 w-4" />
+                </Button>
+              </a>
             </div>
-            <p className="text-muted-foreground text-lg max-w-3xl mx-auto leading-relaxed">
-              Every purchase from our stores directly supports Hawaii Running Project's programs, 
-              training sessions, community events, and our mission to improve health and wellness 
-              throughout the Hawaiian Islands. Thank you for being part of our ohana!
-            </p>
-          </Card>
+          ))}
         </div>
       </div>
     </section>
   );
 };
 
-export default Store; 
+export default Store;
