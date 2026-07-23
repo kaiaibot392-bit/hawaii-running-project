@@ -5,8 +5,8 @@ export type HkurResult = {
   startTime: string;
   endTime: string;
   totalTime: string;
-  date: string;
   waveStart: string;
+  whichWave: string;
 };
 
 // Fetches the live HKUR results. `cache: "no-store"` ensures the browser

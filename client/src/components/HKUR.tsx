@@ -132,7 +132,7 @@ const InfoResults = () => {
                     Finish
                   </th>
                   <th className="px-4 py-3 font-medium text-foreground hidden md:table-cell">
-                    Date
+                    Wave
                   </th>
                 </tr>
               </thead>
@@ -158,7 +158,7 @@ const InfoResults = () => {
                       {r.endTime || "—"}
                     </td>
                     <td className="px-4 py-3 text-muted-foreground whitespace-nowrap hidden md:table-cell">
-                      {r.date || "—"}
+                      {r.whichWave || r.waveStart || "—"}
                     </td>
                   </tr>
                 ))}
