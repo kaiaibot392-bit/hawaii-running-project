@@ -14,8 +14,7 @@ const NAV_LINKS = [
   { name: "Donate", href: "/donate" },
 ];
 
-const LOGO_URL =
-  "https://hawaiirunningproject.wordpress.com/wp-content/uploads/2025/01/cropped-cropped-hrp-transparent.png";
+const LOGO_URL = "/hrp-logo.png";
 
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);

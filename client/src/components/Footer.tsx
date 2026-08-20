@@ -1,8 +1,7 @@
 import { Mail, Facebook, Instagram } from "lucide-react";
 import { Link } from "react-router-dom";
 
-const LOGO_URL =
-  "https://hawaiirunningproject.wordpress.com/wp-content/uploads/2025/01/cropped-cropped-hrp-transparent.png";
+const LOGO_URL = "/hrp-logo.png";
 
 const NAV_COLUMNS = [
   {
