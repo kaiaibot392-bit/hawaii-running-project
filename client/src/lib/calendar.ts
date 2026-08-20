@@ -69,6 +69,7 @@ export function formatHawaiiDate(iso: string): string {
   });
 }
 
+import { Fragment, type ReactNode, createElement } from "react";
 import {
   Flag,
   Footprints,
@@ -108,4 +109,47 @@ export function monthDayHawaii(iso: string): string {
     month: "short",
     day: "numeric",
   });
+}
+
+// Google Calendar descriptions come back as HTML. Render only <br> and <a>
+// (with a scheme-checked href) so we never hand raw markup to
+// dangerouslySetInnerHTML.
+export function renderDescription(html: string): ReactNode {
+  if (typeof window === "undefined" || typeof DOMParser === "undefined") {
+    return html.replace(/<[^>]+>/g, "");
+  }
+  const doc = new DOMParser().parseFromString(`<div>${html}</div>`, "text/html");
+  const root = doc.body.firstChild as HTMLElement | null;
+  if (!root) return null;
+  return createElement(
+    Fragment,
+    null,
+    ...Array.from(root.childNodes).map((n, i) => renderNode(n, i))
+  );
+}
+
+function renderNode(node: Node, key: number): ReactNode {
+  if (node.nodeType === 3) return node.textContent;
+  if (node.nodeType !== 1) return null;
+  const el = node as HTMLElement;
+  const tag = el.tagName.toLowerCase();
+  if (tag === "br") return createElement("br", { key });
+  const children = Array.from(el.childNodes).map((c, i) => renderNode(c, i));
+  if (tag === "a") {
+    const href = el.getAttribute("href") ?? "";
+    const safeHref = /^(https?:|mailto:)/i.test(href) ? href : undefined;
+    if (!safeHref) return createElement(Fragment, { key }, ...children);
+    return createElement(
+      "a",
+      {
+        key,
+        href: safeHref,
+        target: "_blank",
+        rel: "noopener noreferrer",
+        className: "underline underline-offset-4 hover:text-primary break-words",
+      },
+      ...children
+    );
+  }
+  return createElement(Fragment, { key }, ...children);
 }

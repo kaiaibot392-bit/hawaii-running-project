@@ -9,6 +9,7 @@ import {
   fetchCalendarEvents,
   formatHawaiiTime,
   monthDayHawaii,
+  renderDescription,
 } from "@/lib/calendar";
 
 const WeeklySchedule = () => {
@@ -50,8 +51,8 @@ const WeeklySchedule = () => {
             {event.title}
           </h3>
           {event.description && (
-            <p className="mt-3 text-muted-foreground leading-relaxed whitespace-pre-wrap max-w-2xl">
-              {event.description}
+            <p className="mt-3 text-muted-foreground leading-relaxed max-w-2xl break-words">
+              {renderDescription(event.description)}
             </p>
           )}
         </div>
