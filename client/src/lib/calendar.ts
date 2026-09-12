@@ -113,7 +113,8 @@ export function monthDayHawaii(iso: string): string {
 
 // Google Calendar descriptions come back as HTML. Render only <br> and <a>
 // (with a scheme-checked href) so we never hand raw markup to
-// dangerouslySetInnerHTML.
+// dangerouslySetInnerHTML. Bare URLs are typed as plain text just as often as
+// they arrive wrapped in <a>, so linkify those too.
 export function renderDescription(html: string): ReactNode {
   if (typeof window === "undefined" || typeof DOMParser === "undefined") {
     return html.replace(/<[^>]+>/g, "");
@@ -124,17 +125,82 @@ export function renderDescription(html: string): ReactNode {
   return createElement(
     Fragment,
     null,
-    ...Array.from(root.childNodes).map((n, i) => renderNode(n, i))
+    ...Array.from(root.childNodes).map((n, i) => renderNode(n, i, false))
   );
 }
 
-function renderNode(node: Node, key: number): ReactNode {
-  if (node.nodeType === 3) return node.textContent;
+const LINK_CLASS =
+  // overflow-wrap:anywhere (not break-words) so a long URL also shrinks the
+  // grid track's min-content width instead of widening the row past the screen.
+  "text-primary font-medium underline underline-offset-4 decoration-primary/40 hover:decoration-primary [overflow-wrap:anywhere]";
+
+const URL_PATTERN = /((?:https?:\/\/|www\.)[^\s<]+|[^\s<@]+@[^\s<@]+\.[a-z]{2,})/gi;
+
+// Trailing punctuation usually belongs to the sentence, not the URL.
+function splitTrailingPunctuation(match: string): [string, string] {
+  const trailing = match.match(/[.,;:!?)\]}'"]+$/);
+  if (!trailing) return [match, ""];
+  let cut = trailing[0];
+  // Keep a closing paren that pairs with one inside the URL, e.g. wiki links.
+  while (
+    cut.startsWith(")") &&
+    (match.slice(0, match.length - cut.length).match(/\(/g) ?? []).length >
+      (match.slice(0, match.length - cut.length).match(/\)/g) ?? []).length
+  ) {
+    cut = cut.slice(1);
+  }
+  return cut ? [match.slice(0, match.length - cut.length), cut] : [match, ""];
+}
+
+function linkify(text: string, key: number): ReactNode {
+  if (!URL_PATTERN.test(text)) return text;
+  URL_PATTERN.lastIndex = 0;
+  const parts: ReactNode[] = [];
+  let last = 0;
+  let match: RegExpExecArray | null;
+  let i = 0;
+  while ((match = URL_PATTERN.exec(text))) {
+    const [url, trailing] = splitTrailingPunctuation(match[0]);
+    if (!url) continue;
+    if (match.index > last) parts.push(text.slice(last, match.index));
+    const href = url.startsWith("www.")
+      ? `https://${url}`
+      : url.includes("@") && !/^https?:/i.test(url)
+        ? `mailto:${url}`
+        : url;
+    parts.push(
+      createElement(
+        "a",
+        {
+          key: `${key}-${i++}`,
+          href,
+          target: "_blank",
+          rel: "noopener noreferrer",
+          className: LINK_CLASS,
+        },
+        url
+      )
+    );
+    if (trailing) parts.push(trailing);
+    last = match.index + match[0].length;
+  }
+  if (last < text.length) parts.push(text.slice(last));
+  return createElement(Fragment, { key }, ...parts);
+}
+
+function renderNode(node: Node, key: number, inLink: boolean): ReactNode {
+  if (node.nodeType === 3) {
+    const text = node.textContent ?? "";
+    return inLink ? text : linkify(text, key);
+  }
   if (node.nodeType !== 1) return null;
   const el = node as HTMLElement;
   const tag = el.tagName.toLowerCase();
   if (tag === "br") return createElement("br", { key });
-  const children = Array.from(el.childNodes).map((c, i) => renderNode(c, i));
+  const isLink = inLink || tag === "a";
+  const children = Array.from(el.childNodes).map((c, i) =>
+    renderNode(c, i, isLink)
+  );
   if (tag === "a") {
     const href = el.getAttribute("href") ?? "";
     const safeHref = /^(https?:|mailto:)/i.test(href) ? href : undefined;
@@ -146,7 +212,7 @@ function renderNode(node: Node, key: number): ReactNode {
         href: safeHref,
         target: "_blank",
         rel: "noopener noreferrer",
-        className: "underline underline-offset-4 hover:text-primary break-words",
+        className: LINK_CLASS,
       },
       ...children
     );
