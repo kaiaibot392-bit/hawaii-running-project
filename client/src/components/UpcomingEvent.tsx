@@ -10,6 +10,7 @@ import {
   formatHawaiiDate,
   formatHawaiiTime,
   monthDayHawaii,
+  renderDescription,
 } from "@/lib/calendar";
 
 const UpcomingEvent = () => {
@@ -92,8 +93,8 @@ const UpcomingEvent = () => {
               </div>
 
               {event.description && (
-                <p className="pt-2 pb-8 text-muted-foreground leading-relaxed whitespace-pre-wrap line-clamp-3">
-                  {event.description}
+                <p className="pt-2 pb-8 text-muted-foreground leading-relaxed whitespace-pre-wrap line-clamp-3 break-words">
+                  {renderDescription(event.description)}
                 </p>
               )}
 
