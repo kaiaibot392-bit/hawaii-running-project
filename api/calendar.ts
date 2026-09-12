@@ -68,7 +68,9 @@ export default async function handler(req: IncomingMessage, res: ServerResponse)
     const events = await fetchEvents(from, to);
 
     res.setHeader('Content-Type', 'application/json; charset=utf-8');
-    res.setHeader('Cache-Control', 's-maxage=300, stale-while-revalidate=3600');
+    // Calendar edits should show up quickly; an hour of stale-while-revalidate
+    // meant a corrected description could keep serving long after the fix.
+    res.setHeader('Cache-Control', 's-maxage=60, stale-while-revalidate=120');
     res.statusCode = 200;
     res.end(JSON.stringify({ events, from: from.toISOString(), to: to.toISOString() }));
   } catch (err) {
