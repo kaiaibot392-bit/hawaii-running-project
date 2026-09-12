@@ -36,6 +36,12 @@ const MonthView = () => {
   // like nothing happened.
   const selectDay = (day: string | null) => {
     setSelected(day);
+    // A padding day belongs to the neighbouring month; follow it there rather
+    // than showing a dot that does nothing.
+    if (day) {
+      const [y, m] = day.split("-").map(Number);
+      setView((v) => (y === v.year && m - 1 === v.month ? v : { year: y, month: m - 1 }));
+    }
     if (day && !window.matchMedia("(min-width: 1024px)").matches) {
       agendaRef.current?.scrollIntoView({ behavior: "smooth", block: "start" });
     }
@@ -130,9 +136,13 @@ const MonthView = () => {
     return groups;
   }, [agenda]);
 
+  // Steps off the previous state, not the render's copy, so rapid clicks on the
+  // arrows each advance a month instead of collapsing into one.
   const step = (delta: number) => {
-    const next = new Date(Date.UTC(view.year, view.month + delta, 1));
-    setView({ year: next.getUTCFullYear(), month: next.getUTCMonth() });
+    setView((v) => {
+      const next = new Date(Date.UTC(v.year, v.month + delta, 1));
+      return { year: next.getUTCFullYear(), month: next.getUTCMonth() };
+    });
     setSelected(null);
   };
 
@@ -183,7 +193,7 @@ const MonthView = () => {
                 const dayEvents = byDay.get(cell.key) ?? [];
                 const isToday = cell.key === today.key;
                 const isSelected = cell.key === selected;
-                const hasEvents = cell.inMonth && dayEvents.length > 0;
+                const hasEvents = dayEvents.length > 0;
 
                 const content = (
                   <>
