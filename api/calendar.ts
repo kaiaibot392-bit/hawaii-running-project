@@ -6,6 +6,7 @@ const ICS_URL = `https://calendar.google.com/calendar/ical/${encodeURIComponent(
 
 type OutEvent = {
   id: string;
+  seriesId: string;
   title: string;
   description: string;
   location: string;
@@ -36,6 +37,7 @@ export async function fetchEvents(from: Date, to: Date): Promise<OutEvent[]> {
     for (const inst of instances) {
       out.push({
         id: `${item.uid}_${inst.start.toISOString()}`,
+        seriesId: String(item.uid ?? ''),
         title: paramValue(inst.summary) || paramValue(item.summary),
         description: paramValue(inst.event.description),
         location: paramValue(inst.event.location),
